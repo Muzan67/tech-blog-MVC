@@ -2,7 +2,6 @@ const router = require("express").Router();
 const sequelize = require("../config/connection");
 const { Post, User, Comment } = require("../models");
 const withAuth = require("../../utils/auth");
-const { runInNewContext } = require("vm");
 
 // get all posts for dashboard
 router.get("/", (req, res) => {
