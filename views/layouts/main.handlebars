@@ -1,6 +1,5 @@
 {{!using express-handlebar to create}}
 
-
 <html lang="en">
 
   <head>
@@ -13,17 +12,19 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>
-          <a href="/">Tech Blog MVC</a>
-        </h1>
         <nav>
+          <a href="/" class="nav-link">Home</a>
           {{#if loggedIn}}
-            <a href="/dashboard">dashboard</a>
-            <button id="logout" class="btn-no-style">logout</button>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <button id="logout" class="logout">Logout</button>
           {{else}}
             <a href="/login">login</a>
+            <a href="/signup">signup</a>
           {{/if}}
         </nav>
+        <div class="title-container">
+          <h1>Tech Blog MVC</h1>
+        </div>
       </header>
       <main>
         <!--this is the express-handlebar.js from the template that we use-->

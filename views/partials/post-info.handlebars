@@ -2,9 +2,9 @@
 
 <article class="post">
   <div class="title">
-    <a href="/post/{{post_id}}" target="_blank" <span class="user-info">{{user.username}} on {{format_date crerated_at}}</span></a>
+    <a href="/post/{{ post_id }}" target="_blank"{{ title_id }}<span class="user-info">{{user.username}} on {{format_date crerated_at}}</span></a>
   </div>
   <div class="comments">
-    <a href="/post/{{post_id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+    <a href="/post/{{ post_id }}">{{ post_text }}</a>
   </div>
 </article>
