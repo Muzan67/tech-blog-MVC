@@ -1,3 +1,9 @@
+# Tech-Blog-MVC App Deployed on Heroku
+
+https://tech-blog-mvc-1967.herokuapp.com/
+
+Click on link to launch my Note-App on Heroku.
+
 # License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -17,6 +23,8 @@ bcrypt package - to hash passwords.e
 express-session and connect-session-sequelize packages - to add authentication.
 
 # Sample image of Tech Blog MVC
+
+![image](https://user-images.githubusercontent.com/102841726/180685585-e94b931e-71ad-44f1-a7e8-4b4cb29fbdf6.png)
 
 # Credit
 
