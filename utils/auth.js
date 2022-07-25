@@ -10,4 +10,14 @@ const withAuth = (req, res, next) => {
   }
 };
 
-module.exports = withAuth;
+// This is a check to see if the user is authorized to an API
+//  and returns 401 not authorized if not logged in
+const apiAuth = (req, res, next) => {
+  if (!req.session.user_id) {
+    res.status(401).json({ message: "Please log in!" });
+  } else {
+    next();
+  }
+};
+
+module.exports = { withAuth, apiAuth };

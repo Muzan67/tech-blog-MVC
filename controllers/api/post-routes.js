@@ -1,17 +1,22 @@
 const router = require("express").Router();
-const sequelize = require("../../config/connection");
 const { Post, User, Comment } = require("../../models");
-const withAuth = require("../../utils/auth");
+const { apiAuth } = require("../../utils/auth");
 
 // get all users
 router.get("/", (req, res) => {
   console.log("======================");
   Post.findAll({
-    attributes: ["id", "title", "description", "created_at"],
+    attributes: ["post_id", "post_title", "post_text", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: [
+          "comment_id",
+          "comment_text",
+          "post_id",
+          "user_id",
+          "created_at",
+        ],
         include: {
           model: User,
           attributes: ["username"],
@@ -33,13 +38,19 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   Post.findOne({
     where: {
-      id: req.params.id,
+      post_id: req.params.id,
     },
-    attributes: ["id", "title", "description", "created_at"],
+    attributes: ["post_id", "post_title", "post_text", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: [
+          "comment_id",
+          "comment_text",
+          "post_id",
+          "user_id",
+          "created_at",
+        ],
         include: {
           model: User,
           attributes: ["username"],
@@ -64,11 +75,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", withAuth, (req, res) => {
-  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
+router.post("/", apiAuth, (req, res) => {
+  // expects {title: 'Tech Blog MVC goes public!', post_url: 'TechBlog MVC', user_id: 1}
   Post.create({
-    title: req.body.title,
-    description: req.body.description,
+    post_title: req.body.post_title,
+    post_text: req.body.post_text,
     user_id: req.session.user_id,
   })
     .then((dbPostData) => res.json(dbPostData))
@@ -78,15 +89,16 @@ router.post("/", withAuth, (req, res) => {
     });
 });
 
-router.put("/:id", withAuth, (req, res) => {
+router.put("/:id", apiAuth, (req, res) => {
   Post.update(
     {
-      title: req.body.title,
-      description: req.body.description,
+      post_title: req.body.post_title,
+      post_text: req.body.post_text,
     },
     {
       where: {
-        id: req.params.id,
+        post_id: req.params.id,
+        user_id: req.session.user_id,
       },
     }
   )
@@ -103,11 +115,12 @@ router.put("/:id", withAuth, (req, res) => {
     });
 });
 
-router.delete("/:id", withAuth, (req, res) => {
+router.delete("/:id", apiAuth, (req, res) => {
   console.log("id", req.params.id);
   Post.destroy({
     where: {
-      id: req.params.id,
+      post_id: req.params.id,
+      user_id: req.params.user_id,
     },
   })
     .then((dbPostData) => {

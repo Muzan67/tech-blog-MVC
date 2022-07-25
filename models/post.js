@@ -6,28 +6,25 @@ class Post extends Model {}
 // create fields/columns for Post model
 Post.init(
   {
-    id: {
+    post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    title: {
+    post_title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    post_url: {
-      type: DataTypes.STRING,
+    post_text: {
+      type: DataTypes.TEXT,
       allowNull: false,
-      validate: {
-        isURL: true,
-      },
     },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",
-        key: "id",
+        key: "user_id",
       },
     },
   },
